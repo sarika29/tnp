@@ -11,15 +11,25 @@ from .models import *
 def signup(request):
 	response = {}
 	if request.method == 'POST' :
+		#username=request.POST['username']
 		regno = request.POST['regno']
 		password = request.POST['password']
 		rollno = request.POST['rollno']
 		cgpa = request.POST['cgpa']
-		branch = request.POST['password']
-		if User.objects.filter(username=username):
+		branch = request.POST['branch']
+		if User.objects.filter(username=regno):
 			response['error']=1;
 		else:
 			User.objects.create_user(username = regno,password = password,email='')
+			obj=Student()
+			obj.username=regno
+			br=Branch.objects.get(branch=branch)
+			obj.regno=regno
+			obj.password=password
+			obj.rollno=rollno
+			obj.cgpa=cgpa
+			obj.branch=br
+			obj.save()
 	return render(request,'login.html',response)
 
 def profile(request):
