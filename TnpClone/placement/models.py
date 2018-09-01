@@ -27,23 +27,17 @@ class Student(models.Model):
 	cgpa = models.FloatField()
 	branch=models.ForeignKey(Branch, on_delete=models.CASCADE)
 	resume = models.FileField(upload_to=get_resume_path, blank=True, null=True)
+	iscoordinator = models.BooleanField(default=False)
 
 	def __str__(self):
 		return self.username
 
-class Coordinator(models.Model):
-	student = models.ForeignKey(Student, on_delete=models.CASCADE)
-	isco = models.CharField(max_length=255, default="hello")
-
-	def __str__(self):
-		return student.username
-
 class Company(models.Model):
 	name = models.CharField(max_length=255)
 	description = models.TextField()
-	min_cgpa = models.IntegerField()
+	min_cgpa = models.FloatField()
 	branchOptions = models.ManyToManyField(Branch, related_name='company', blank=True)
-	coordinator = models.ForeignKey(Coordinator, on_delete=models.CASCADE, blank=True)
+	coordinator = models.ForeignKey(Student, on_delete=models.CASCADE)
 
 	def __str__(self):
 		return self.name

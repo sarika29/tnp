@@ -2,17 +2,15 @@
 <html>
 <head>
 	<title>Profile</title>
+	<link rel="stylesheet" type="text/css" href="{% static '' ">
 </head>
 <body>
 <h1>Profile</h1>
 {% if student %}
 	<p>username: {{ student.username }}</p>
-	<p>regno: {{ student.regno }}</p>
+	<p>cgparegno: {{ student.regno }}</p>
 	<p>rollno: {{ student.rollno }}</p>
 	<p>cgpa: {{ student.cgpa }}</p>
-	<p>branch: {{ student.branch }}</p>
-{% endif %}
-{% if company %}
-	<p>{{company.name}}</p>
 {% endif %}
 </body>
+</html>

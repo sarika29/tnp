@@ -49,22 +49,25 @@
 			   {% endif %}</p>
 			  <h1 style="font-color:red;"></h1>
               <div>
-                <input type="text" class="form-control" placeholder="Registration Number" name="regno" required="" />
+                <input type="text" class="form-control" placeholder="Registration No." name="regno" required="" />
               </div>
               <div>
-                <input type="password" class="form-control" placeholder="Reg. no." name="password" required="" />
-              </div>
-              <div>
-                <input type="text" class="form-control" placeholder="Roll no." name="Roll no." required="" />
+                <input type="text" class="form-control" placeholder="Roll No." name="rollno" required="" />
               </div>
               <div>
                 <input type="text" class="form-control" placeholder="CGPA" name="cgpa" required="" />
               </div>
               <div>
-                <input type="text" class="form-control" placeholder="Branch" name="branch" required="" />
+                <select name="branch">
+                  <option value="CSE">CSE</option>
+                  <option value="ECE">ECE</option>
+                  <option value="MME">MME</option>
+                  <option value="BIO">BIO</option>
+                  <option value="EEE">EEE</option>
+                </select>
               </div>
               <div>
-                <input type="text" class="form-control" placeholder="Resume" name="resume" required="" />
+                <input type="password" class="form-control" placeholder="Password" name="password" required="" />
               </div>
               <div>
                 <a class="btn btn-default submit" href="{% url 'index' %}">Forgot Password ?</a>
@@ -94,10 +97,13 @@
           <section class="login_content">
             <form method="POST" action="/saveData/">
 			{% csrf_token %}
-              <h1>Get Your Credentials</h1>
+              <h1>Login</h1>
 			  
               <div>
-                <input type="password" name="spid"  class="form-control" placeholder="Enter ID" required="" />
+                <input type="Reg. no." name="spid"  class="form-control" placeholder="Reg. no." required="" />
+              </div>
+              <div>
+                <input type="password" name="spid"  class="form-control" placeholder="Password" required="" />
               </div>
               
               <div>
@@ -116,7 +122,7 @@
 
                 <div>
                   <h1><i class="fa fa-paw"></i>Tnp Placements</h1>
-                  <p>©GameChangers All Rights Reserved</p>
+                  <p>All Rights Reserved</p>
                 </div>
               </div>
             </form>
