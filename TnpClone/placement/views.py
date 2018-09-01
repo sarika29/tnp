@@ -18,3 +18,7 @@ def signin(request):
 			login(request,user)
 			return redirect('/index')
 	return render(request,'login.html',response)
+
+
+
+

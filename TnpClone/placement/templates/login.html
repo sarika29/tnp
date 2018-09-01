@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Fest Management | Login </title>
+    <title>Tnp | Sign Up </title>
 
     <!-- Bootstrap -->
     <link href="{% static 'vendors/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -34,7 +34,7 @@
           <section class="login_content">
             <form method="POST" action="/signin/">
 	          {% csrf_token %}
-              <h1>Login Form</h1>
+              <h1>Sign Up Form</h1>
 			  {% if msg == 1 %}
 			   <p style="color:red;">Your credentials have already been issued. Kindly Login</p>
 			   {% endif %}
@@ -53,11 +53,23 @@
                 <input type="text" class="form-control" placeholder="Username" name="username" required="" />
               </div>
               <div>
-                <input type="password" class="form-control" placeholder="Password" name="password" required="" />
+                <input type="password" class="form-control" placeholder="Reg. no." name="password" required="" />
+              </div>
+              <div>
+                <input type="text" class="form-control" placeholder="Roll no." name="Roll no." required="" />
+              </div>
+              <div>
+                <input type="text" class="form-control" placeholder="CGPA" name="cgpa" required="" />
+              </div>
+              <div>
+                <input type="text" class="form-control" placeholder="Branch" name="branch" required="" />
+              </div>
+              <div>
+                <input type="text" class="form-control" placeholder="Resume" name="resume" required="" />
               </div>
               <div>
                 <a class="btn btn-default submit" href="{% url 'index' %}">Forgot Password ?</a>
-                <button class="btn btn-default submit" type="submit">Login</button>
+                <button class="btn btn-default submit" type="submit">Sign Up</button>
               </div>
 
               <div class="clearfix"></div>
@@ -71,8 +83,8 @@
                 <br />
 
                 <div>
-                  <h1><i class="fa fa-paw"></i> Fest Management</h1>
-                  <p>©GameChangers All Rights Reserved.</p>
+                  <h1><i class="fa fa-paw"></i> Placement</h1>
+                  <p>All Rights Reserved.</p>
                 </div>
               </div>
             </form>
@@ -104,7 +116,7 @@
                 <br />
 
                 <div>
-                  <h1><i class="fa fa-paw"></i> Fest Management</h1>
+                  <h1><i class="fa fa-paw"></i>Tnp Placements</h1>
                   <p>©GameChangers All Rights Reserved</p>
                 </div>
               </div>
