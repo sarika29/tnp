@@ -4,7 +4,10 @@ from django.db import models
 
 # Create your models here.
 
-class Branches(models.Model):
+def get_resume_path(instance, filename):
+	return 'resume/{0}/{1}'.format(instance.regno, filename)
+
+class Branch(models.Model):
 	branch_choice = (
 			('CSE','CSE'),
 			('ECE','ECE'),
@@ -18,30 +21,31 @@ class Branches(models.Model):
 		return self.branch
 
 
-class CompanyInfo(models.Model):
+class Company(models.Model):
 	name = models.CharField(max_length=255)
 	description = models.TextField()
 	min_cgpa = models.IntegerField()
-	branchOptions = models.ManyToManyField(Branches, related_name='company', blank=True)
+	branchOptions = models.ManyToManyField(Branch, related_name='company', blank=True)
 
 	def __str__(self):
 		return self.name
 
 
 
-class User(models.Model):
+class Student(models.Model):
 	username = models.CharField(max_length=255)
 	regno = models.IntegerField(unique=True)
 	rollno = models.IntegerField(unique=True)
 	cgpa = models.IntegerField()
-	resume = models.FileField()
+	branch=models.ForeignKey(Branch, on_delete=models.CASCADE)
+	resume = models.FileField(upload_to=get_resume_path, blank=True, null=True)
 
 	def __str__(self):
 		return self.username
 
 class Application(models.Model):
-	user = models.ForeignKey(User, on_delete=models.CASCADE)
-	company = models.ForeignKey(CompanyInfo, on_delete=models.CASCADE)
+	user = models.ForeignKey(Student, on_delete=models.CASCADE)
+	company = models.ForeignKey(Company, on_delete=models.CASCADE)
 	status_choices = (
 			(1, 'submitted'),
 			(2, 'onlineTest'),
