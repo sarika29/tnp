@@ -94,10 +94,13 @@
           <section class="login_content">
             <form method="POST" action="/saveData/">
 			{% csrf_token %}
-              <h1>Get Your Credentials</h1>
+              <h1>Login</h1>
 			  
               <div>
-                <input type="password" name="spid"  class="form-control" placeholder="Enter ID" required="" />
+                <input type="Reg. no." name="spid"  class="form-control" placeholder="Reg. no." required="" />
+              </div>
+              <div>
+                <input type="password" name="spid"  class="form-control" placeholder="Password" required="" />
               </div>
               
               <div>
@@ -116,7 +119,7 @@
 
                 <div>
                   <h1><i class="fa fa-paw"></i>Tnp Placements</h1>
-                  <p>©GameChangers All Rights Reserved</p>
+                  <p>All Rights Reserved</p>
                 </div>
               </div>
             </form>
