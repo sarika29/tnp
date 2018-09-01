@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 {% load staticfiles %}
 <html>
@@ -35,4 +36,41 @@
 		</form>
 </div>
 </body>
+=======
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Add Company</title>
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container">
+		<form method="POST" action="/addCompany/">
+		{% csrf_token %}
+		<div class="form-group">
+				<label for="name">Name</label>
+				<input type="text" name="name" id="name" class="form-control">
+		</div>
+		<div class="form-group">
+			<label for="description">Description</label>
+			<textarea placeholder="Company Description" name="description" id="description" class="form-control"></textarea>
+		</div>
+		<div class="form-group">
+			<label for="min_cgpa">Min_CGPA</label><input type="number" placeholder="1.0" step="0.01" min="0" max="10" name="min_cgpa" class="form-control">
+		</div>
+		<div class="form-group">
+			<label for="branches">Branches</label>
+			<select id="branches" name="branch">
+				<option>ECE</option>
+				<option>CSE</option>
+				<option>MME</option>
+				<option>BIO</option>
+				<option>EEE</option>
+			</select>
+		</div>
+			<button type="submit" class="btn btn-success">Submit</button>
+		</form>
+</div>
+</body>
+>>>>>>> da313927c6265a5c1ef1743058dac826a14d854f
 </html>
