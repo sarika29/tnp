@@ -2,11 +2,8 @@
 from __future__ import unicode_literals
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
-<<<<<<< HEAD
 from django.contrib.auth.models import User
-=======
 from .models import *
->>>>>>> 31c4604744205ac0caf2eeb5d7ed15073d5c135c
 
 # Create your views here.
 
@@ -16,7 +13,6 @@ def signup(request):
 	if request.method == 'POST' :
 		regno = request.POST['regno']
 		password = request.POST['password']
-<<<<<<< HEAD
 		rollno = request.POST['rollno']
 		cgpa = request.POST['cgpa']
 		branch = request.POST['password']
@@ -24,14 +20,6 @@ def signup(request):
 			response['error']=1;
 		else:
 			User.objects.create_user(username = regno,password = password,email='')
-	return render(request,'login.html',response)
-=======
-		user = authenticate(username=username, password=password)
-		if user is None :
-			return render(request,'login.html',response)
-		else :
-			login(request,user)
-			return redirect('/index')
 	return render(request,'login.html',response)
 
 
@@ -43,4 +31,3 @@ def profile(request):
 
 	return render(request, 'profile.html', response)
 
->>>>>>> 31c4604744205ac0caf2eeb5d7ed15073d5c135c
