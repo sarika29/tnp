@@ -49,22 +49,24 @@
 			   {% endif %}</p>
 			  <h1 style="font-color:red;"></h1>
               <div>
-                <input type="text" class="form-control" placeholder="Registration Number" name="regno" required="" />
+                <input type="text" class="form-control" placeholder="Registration No." name="regno" required="" />
               </div>
               <div>
-                <input type="password" class="form-control" placeholder="Reg. no." name="password" required="" />
-              </div>
-              <div>
-                <input type="text" class="form-control" placeholder="Roll no." name="Roll no." required="" />
+                <input type="text" class="form-control" placeholder="Roll No." name="rollno" required="" />
               </div>
               <div>
                 <input type="text" class="form-control" placeholder="CGPA" name="cgpa" required="" />
               </div>
               <div>
-                <input type="text" class="form-control" placeholder="Branch" name="branch" required="" />
+                <select name="branch">
+  <option value="CSE">CSE</option>
+  <option value="ECE">ECE</option>
+  <option value="MME">MME</option>
+  <option value="BIO">BIO</option>
+</select>
               </div>
               <div>
-                <input type="text" class="form-control" placeholder="Resume" name="resume" required="" />
+                <input type="password" class="form-control" placeholder="Password" name="password" required="" />
               </div>
               <div>
                 <a class="btn btn-default submit" href="{% url 'index' %}">Forgot Password ?</a>
