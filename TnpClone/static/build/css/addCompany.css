@@ -1,0 +1,20 @@
+
+
+body{
+	background-color:rgb(192,192,192);
+	padding-top:20px;
+	text-shadow:blue;
+}
+
+.btn btn-success{
+     border-color: blue;
+
+}
+
+#branches{
+	color:green;
+}
+
+.form-group{
+	color:blue;
+}

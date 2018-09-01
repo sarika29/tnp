@@ -45,11 +45,10 @@ def main(request):
 	response={}
 	current_user = request.user.username
 	response['name']=current_user
-<<<<<<< HEAD
-	obj=Student.objects.get(regno= 12)
-=======
+
+
 	obj=Student.objects.get(regno= 123)
->>>>>>> f2603e8faa1260366d8608d78ad1dfd32b9cc759
+
 	response['student']=obj
 	response['file']=obj.resume
 	return render(request,'production/index.html',response)
@@ -59,3 +58,8 @@ def upcompany(request):
 	current_user = request.user.username
 	response['name']=current_user
 	return render(request,'production/upcompany.html',response)
+
+def addCompany(request):
+	response={}
+	return render(request,'addCompany.html',response)
+
