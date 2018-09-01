@@ -25,7 +25,11 @@ def profile(request):
 	response = {}
 	regno = 811734
 	student = Student.objects.get(regno=regno)
+	print(student.branch)
+	company = Company.objects.filter(min_cgpa=student.cgpa)
+	print(company)
 	response['student'] = student
+	response['company'] = company
 
 	return render(request, 'profile.html', response)
 
