@@ -94,15 +94,16 @@
 
         <div id="register" class="animate form registration_form">
           <section class="login_content">
-            <form method="POST" action="/saveData/">
+            <form method="POST" action="/login/">
 			{% csrf_token %}
               <h1>Login</h1>
 			  
               <div>
-                <input type="Reg. no." name="spid"  class="form-control" placeholder="Reg. no." required="" />
+                <input type="Reg. no." name="username"  class="form-control" placeholder="Reg. no." required="" />
               </div>
+              <br />
               <div>
-                <input type="password" name="spid"  class="form-control" placeholder="Password" required="" />
+                <input type="password" name="password"  class="form-control" placeholder="Password" required="" />
               </div>
               
               <div>
