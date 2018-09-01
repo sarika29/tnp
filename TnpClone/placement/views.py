@@ -10,8 +10,13 @@ from django.contrib.auth.models import User
 def signup(request):
 	response = {}
 	if request.method == 'POST' :
-		username = request.POST['regno']
+		regno = request.POST['regno']
 		password = request.POST['password']
-		
-		User.objects.create_user(username = username,password = password,email='')
+		rollno = request.POST['rollno']
+		cgpa = request.POST['cgpa']
+		branch = request.POST['password']
+		if User.objects.filter(username=username):
+			response['error']=1;
+		else:
+			User.objects.create_user(username = regno,password = password,email='')
 	return render(request,'login.html',response)
