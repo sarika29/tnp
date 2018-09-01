@@ -4,6 +4,9 @@ from django.db import models
 
 # Create your models here.
 
+def get_resume_path(instance, filename):
+	return 'resume/{0}/{1}'.format(instance.regno, filename)
+
 class Branch(models.Model):
 	branch_choice = (
 			('CSE','CSE'),
@@ -35,7 +38,7 @@ class Student(models.Model):
 	rollno = models.IntegerField(unique=True)
 	cgpa = models.IntegerField()
 	branch=models.ForeignKey(Branch, on_delete=models.CASCADE)
-	resume = models.FileField()
+	resume = models.FileField(upload_to=get_resume_path, blank=True, null=True)
 
 	def __str__(self):
 		return self.username
@@ -53,4 +56,3 @@ class Application(models.Model):
 	def __str__(self):
 		return self.user.username + str(self.status)
 
-		
