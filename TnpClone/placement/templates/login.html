@@ -33,11 +33,7 @@
           <section class="login_content">
             <form method="POST" action="/signin/">
 	          {% csrf_token %}
-<<<<<<< HEAD
               <h1>Sign Up Form</h1>
-=======
-              <h1>Sign Up</h1>
->>>>>>> 7194dbae6ad25df7de985907c05fdb8080b88b67
 			  {% if msg == 1 %}
 			   <p style="color:red;">Your credentials have already been issued. Kindly Login</p>
 			   {% endif %}

@@ -22,11 +22,6 @@ def signup(request):
 			User.objects.create_user(username = regno,password = password,email='')
 	return render(request,'login.html',response)
 
-
-<<<<<<< HEAD
-
-
-=======
 def profile(request):
 	response = {}
 	regno = 811734
@@ -35,8 +30,3 @@ def profile(request):
 
 	return render(request, 'profile.html', response)
 
-<<<<<<< HEAD
-=======
->>>>>>> 31c4604744205ac0caf2eeb5d7ed15073d5c135c
->>>>>>> 7194dbae6ad25df7de985907c05fdb8080b88b67
->>>>>>> 23dfcc4553ef775f6d25e579e92ad8f10b876f23
