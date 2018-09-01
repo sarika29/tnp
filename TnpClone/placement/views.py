@@ -45,14 +45,14 @@ def main(request):
 	response={}
 	current_user = request.user.username
 	response['name']=current_user
-<<<<<<< HEAD
+
 
 
 	obj=Student.objects.get(regno= 123)
 
-=======
+
 	obj=Student.objects.get(regno= current_user)
->>>>>>> da313927c6265a5c1ef1743058dac826a14d854f
+
 	response['student']=obj
 	response['file']=obj.resume
 	return render(request,'production/index.html',response)
@@ -66,11 +66,11 @@ def upcompany(request):
 	response['company']=obj
 	return render(request,'production/upcompany.html',response)
 
-<<<<<<< HEAD
+
 def addCompany(request):
 	response={}
 	return render(request,'addCompany.html',response)
-=======
+
 def signin(request):
 	response = {}
 	if request.method == 'POST' :
@@ -84,5 +84,5 @@ def signin(request):
 			return redirect('/index')
 	return render(request,'login.html',response)
 
->>>>>>> da313927c6265a5c1ef1743058dac826a14d854f
+
 
