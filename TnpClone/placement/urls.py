@@ -4,5 +4,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-	url(r'^home/', views.index),
+	url(r'^signin/$',views.signin,name="index"),
+	url(r'^profile/$', views.profile, name='profile'),
 ]
