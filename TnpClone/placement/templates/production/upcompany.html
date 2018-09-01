@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" href="images/favicon.ico" type="image/ico" />
+  <link rel="icon" href="images/favicon.ico" type="image/ico" />
 
     <title>Training and Placement</title>
 
@@ -19,7 +19,7 @@
     <link href="{% static 'vendors/nprogress/nprogress.css' %}" rel="stylesheet">
     <!-- iCheck -->
     <link href="{% static 'vendors/iCheck/skins/flat/green.css' %}" rel="stylesheet">
-	
+  
     <!-- bootstrap-progressbar -->
     <link href="{% static 'vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css' %}" rel="stylesheet">
     <!-- JQVMap -->
@@ -57,8 +57,8 @@
             <br />
 
             <!-- sidebar menu -->
-		
-		
+    
+    
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 <h3>Important</h3>
@@ -69,7 +69,7 @@
                 
                 </ul>
               </div>
-			 
+       
               <div class="menu_section">
                 <h3>Additional</h3>
                 <ul class="nav side-menu">
@@ -139,7 +139,7 @@
                     <span class="badge bg-green">{{one.notif}}</span>
                   </a>
                   <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-				  {% for key,value in one.req.items %}
+          {% for key,value in one.req.items %}
                     <li>
                       <a href="/recrequestchk/{{value.rid}}/">
                         <span class="image"><img src="{% static 'images/img.jpg' %}" alt="Profile Image" /></span>
@@ -149,14 +149,14 @@
                         </span>
                         <span class="message">
                           {{value.msg}}
-						  
+              
                         </span>
                       </a>
                     </li>
-					
-				{% endfor %}
-				
-					{% for key,value in three.req.items %}
+          
+        {% endfor %}
+        
+          {% for key,value in three.req.items %}
                     <li style="background-color:lightgreen;">
                       <a href="/recrequestchk/{{value.rid}}/">
                         <span class="image"><img src="{% static 'images/img.jpg' %}" alt="Profile Image" /></span>
@@ -166,12 +166,12 @@
                         </span>
                         <span class="message">
                           {{value.msg}}
-						  
+              
                         </span>
                       </a>
                     </li>
-				{% endfor %}
-			
+        {% endfor %}
+      
                     <li>
                       <div class="text-center">
                         <a>
@@ -182,29 +182,29 @@
                     </li>
                   </ul>
                 </li>
-				
-				  <li role="presentation" class="dropdown">
+        
+          <li role="presentation" class="dropdown">
                   <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-				 <i class="fa fa-bell"></i>
+         <i class="fa fa-bell"></i>
                     <span class="badge bg-green">{{two.notif}}</span>
                   </a>
                   <ul id="menu2" class="dropdown-menu list-unstyled msg_list" role="menu">
-				  {% for key,value in two.req.items %}
+          {% for key,value in two.req.items %}
                     <li>
                       <a>
                         <span class="image"><img src="{% static 'images/img.jpg' %}" alt="Profile Image" /></span>
                         <span>
-						
+            
                           <span style="color:#2A3F54;"><a href="/callchk/">{{value.fruser1}}</a></span>
                           <span class="time">3 mins ago</span>
                         </span>
                         <span class="message">
                           {{value.msg}}
-						  
+              
                         </span>
                       </a>
                     </li>
-				{% endfor %}
+        {% endfor %}
                     <li>
                       <div class="text-center">
                         <a>
@@ -215,27 +215,27 @@
                     </li>
                   </ul>
                 </li>
-				<!-- Requests -->
-				<li role="presentation" class="dropdown">
+        <!-- Requests -->
+        <li role="presentation" class="dropdown">
                  <a href=""  title="Make a new request">
                     <i class="fa fa-plus" ></i>
                     
                   </a>
-				  </li>
+          </li>
                 <li role="presentation" class="dropdown">
                   <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-paper-plane"></i>
                   
                   </a>
                   <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-<form id="demo-form" method="POST" action="/newmessage/">				               
-							   <li>    
-								
-								{% csrf_token %}
-				   <input type='text' name="msg" placeholder="Enter your message" class="form-control" required />
-				   
-				  
-				 </li>
+<form id="demo-form" method="POST" action="/newmessage/">                      
+                 <li>    
+                
+                {% csrf_token %}
+           <input type='text' name="msg" placeholder="Enter your message" class="form-control" required />
+           
+          
+         </li>
                     <li>
                       <div class="text-center">
                         <button class="btn btn-primary" type="submit">Submit</button>
@@ -245,7 +245,7 @@
                 </li>
 
                  <!-- Requests done-->
-			  </ul>
+        </ul>
             </nav>
           </div>
         </div>
@@ -276,7 +276,7 @@
               <div class="count">{{count.countc}}</div>
              
             </div>
-			  <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i> No. of sent requests</span>
               <div class="count">{{count.counts}}</div>
              
@@ -292,7 +292,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="x_panel">
                 <div class="x_title">
-                  <h2>My Profile</h2>
+                  <h2>Recent Activities <small>Sessions</small></h2>
 
                   <div class="clearfix"></div>
                 </div>
@@ -300,18 +300,59 @@
                   <div class="dashboard-widget-content">
 
                     <ul class="list-unstyled timeline widget">
+          {% for r in rec_act %}
                       <li>
                         <div class="block">
                           <div class="block_content">
                             <h2 class="title">
-                                              Username:{{student.username}} <br>
-                                              Registration Number:{{student.regno}}<br>
-                                              Roll Number:{{student.rollno}}<br>
-                                              Branch:{{student.branch}}<br>
-                                              CGPA:{{student.cgpa}}<br>
-                                              Resume:<a href="/{{a.resume}}" target="_blank">Hello</a>
-                                            </h2>
-                                          </li>
+                                              <a>{{r.rid}}</a>
+                                          </h2>
+              {% if r.result == 'notseen' %}
+                            <p class="excerpt">Your request {{r.rid}} has been sent</p>
+              
+              {% elif r.result == 'yes' %}
+                              <p class="excerpt">Your request {{r.rid}} has been accepted</p>
+                {% elif r.result == 'no' %}
+                              <p class="excerpt">Your request {{r.rid}} has been rejected</p>
+                {% else %}
+                              <p class="excerpt">Your request {{r.rid}} has been completed</p>
+                Following are attached documents if any:<br>
+            {% for a in myfiles %}
+              
+                    {% if a.rid == r %}
+            
+            <a href="/{{a.attachment}}" target="_blank">{{a.file_name}}</a><br>
+            {% endif %}
+            {% endfor %}
+                {% endif %}
+                          </div>
+                        </div>
+                      </li>
+                     {% endfor %}
+            {% if g %}
+           
+           {% for r in qobj %}
+                      <li>
+                        <div class="block">
+                          <div class="block_content">
+                            <h2 class="title">
+                                              <p class="excerpt">{{r.fromd}} sent to {{r.tod}}</p>
+                        {% for a in myfiles %}
+             
+                             {% if a.rid == r.link %}
+            
+            <a href="/{{a.attachment}}" target="_blank">{{a.file_name}}</a><br>
+            {% endif %}
+            {% endfor %}
+               
+                                          </h2>
+            
+                          </div>
+                        </div>
+                      </li>
+                     {% endfor %}
+            {% endif %}
+          
                     </ul>
                   </div>
                 </div>
@@ -320,7 +361,7 @@
 
 
            
-			 
+      
 
 
              </div>
@@ -378,6 +419,6 @@
 
     <!-- Custom Theme Scripts -->
     <script src="{% static 'build/js/custom.min.js' %}"></script>
-	
+  
   </body>
 </html>
