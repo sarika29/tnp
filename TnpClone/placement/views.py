@@ -45,8 +45,9 @@ def main(request):
 	response={}
 	current_user = request.user.username
 	response['name']=current_user
-	obj=Student.objects.get(regno= 811734)
+	obj=Student.objects.get(regno= 123)
 	response['student']=obj
+	response['file']=obj.resume
 	return render(request,'production/index.html',response)
 
 def upcompany(request):
