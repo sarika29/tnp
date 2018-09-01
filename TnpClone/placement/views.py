@@ -55,3 +55,13 @@ def upcompany(request):
 	current_user = request.user.username
 	response['name']=current_user
 	return render(request,'production/upcompany.html',response)
+
+def addCompany(request):
+	response = {}
+	if request.method == "POST":
+		company = Company()
+		company.name = request.POST["name"]
+		company.description = request.POST["description"]
+		company.min_cgpa = request.POST["min_cgpa"]
+		company.branchOptions = request.POST["branch"]
+	return render(request, 'addCompany.html', response)
