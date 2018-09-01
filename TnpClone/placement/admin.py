@@ -9,4 +9,5 @@ admin.site.register(Branch)
 admin.site.register(Company)
 admin.site.register(Student)
 admin.site.register(Application)
+admin.site.register(Coordinator)
 

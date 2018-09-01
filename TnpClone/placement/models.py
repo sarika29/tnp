@@ -20,28 +20,33 @@ class Branch(models.Model):
 	def __str__(self):
 		return self.branch
 
+class Student(models.Model):
+	username = models.CharField(max_length=255)
+	regno = models.IntegerField(unique=True)
+	rollno = models.IntegerField(unique=True)
+	cgpa = models.FloatField()
+	branch=models.ForeignKey(Branch, on_delete=models.CASCADE)
+	resume = models.FileField(upload_to=get_resume_path, blank=True, null=True)
+
+	def __str__(self):
+		return self.username
+
+class Coordinator(models.Model):
+	student = models.ForeignKey(Student, on_delete=models.CASCADE)
+	isco = models.CharField(max_length=255, default="hello")
+
+	def __str__(self):
+		return student.username
 
 class Company(models.Model):
 	name = models.CharField(max_length=255)
 	description = models.TextField()
 	min_cgpa = models.IntegerField()
 	branchOptions = models.ManyToManyField(Branch, related_name='company', blank=True)
+	coordinator = models.ForeignKey(Coordinator, on_delete=models.CASCADE, blank=True)
 
 	def __str__(self):
 		return self.name
-
-
-
-class Student(models.Model):
-	username = models.CharField(max_length=255)
-	regno = models.IntegerField(unique=True)
-	rollno = models.IntegerField(unique=True)
-	cgpa = models.IntegerField()
-	branch=models.ForeignKey(Branch, on_delete=models.CASCADE)
-	resume = models.FileField(upload_to=get_resume_path, blank=True, null=True)
-
-	def __str__(self):
-		return self.username
 
 class Application(models.Model):
 	user = models.ForeignKey(Student, on_delete=models.CASCADE)
