@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Profile</title>
+</head>
+<body>
+<h1>Profile</h1>
+{% if student %}
+	<p>username: {{ student.username }}</p>
+	<p>cgparegno: {{ student.regno }}</p>
+	<p>rollno: {{ student.rollno }}</p>
+	<p>cgpa: {{ student.cgpa }}</p>
+{% endif %}
+</body>
+</html>

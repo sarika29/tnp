@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
+from .models import *
 
 # Create your views here.
 
@@ -18,3 +19,13 @@ def signin(request):
 			login(request,user)
 			return redirect('/index')
 	return render(request,'login.html',response)
+
+
+def profile(request):
+	response = {}
+	regno = 811734
+	student = Student.objects.get(regno=regno)
+	response['student'] = student
+
+	return render(request, 'profile.html', response)
+
