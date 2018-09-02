@@ -32,14 +32,6 @@ def signup(request):
 			obj.save()
 	return render(request,'login.html',response)
 
-def profile(request):
-	response = {}
-	regno = 811734
-	student = Student.objects.get(regno=regno)
-	response['student'] = student
-
-	return render(request, 'profile.html', response)
-
 def main(request):
 
 	response={}
@@ -91,9 +83,12 @@ def acceptcomp(request,compname):
 	response={}
 	response['company']=obj
 	current_user=request.user.username
-	#reponse['name']=current_user
-	#std=Student.objects.get(username=current_user)
-	#response['appl']=Application.objects.filter(company=obj,student=std)
+	response['name']=current_user
+	std=Student.objects.get(username=current_user)
+	if Application.objects.filter(company=obj,student=std).exists():
+		response['flag']=1
+		response['company']=Company.objects.filter(min_cgpa__lte=std.cgpa)
+		return render(request,'production/upcompany.html',response)
 	return render(request,'production/acceptcomp.html',response)
 
 
