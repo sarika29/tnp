@@ -9,11 +9,14 @@ urlpatterns = [
 	url(r'^addCompany/$',views.addCompany,name='addCompany'),
 
 	url(r'^index/$', views.main, name='main'),
+	url(r'^listcomp/$', views.listcomp, name='main'),
 	url(r'^upcompany/$', views.upcompany, name='upcompany'),
 	url(r'^login/$', views.signin, name='login'),
 	url(r'^acceptcomp/(?P<compname>[A-Za-z0-9.,]+)/$', views.acceptcomp,name="acceptcomp/(?P<req>[A-Za-z0-9.,]+)"),
 	url(r'^logout/$',views.logout_view,name="logout"),
 	url(r'^applycomp/(?P<req>[A-Za-z0-9.,]+)/$', views.applycomp,name="applycomp"),
+	url(r'^liststd/(?P<compname>[A-Za-z0-9.,]+)/$', views.liststd,name="stdlist"),
+	url(r'^export/xls/(?P<compname>[A-Za-z0-9.,]+)/$', views.export_users_xls, name='export_users_xls'),
 ]	
 
 if settings.DEBUG:
