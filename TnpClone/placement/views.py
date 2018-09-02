@@ -36,7 +36,6 @@ def signup(request):
 	return render(request,'login.html',response)
 
 def main(request):
-
 	response={}
 	try:
 		current_user = request.user.username
@@ -89,6 +88,11 @@ def addCompany(request):
 		company.save()
 	return render(request, 'addCompany.html', response)
 
+
+def addCompany(request):
+	response={}
+	return render(request,'addCompany.html',response)
+
 def signin(request):
 	current_user = request.user.username
 	obj = Student.objects.get(username=current_user)
@@ -106,5 +110,38 @@ def signin(request):
 			return redirect('/index')
 	return render(request,'login.html',response)
 
+
 def home(request):
 	return HttpResponse("<h1>Welcome</h1><title>Home</title>")
+
+def acceptcomp(request,compname):
+
+	obj=Company.objects.get(name=compname)
+	response={}
+	response['company']=obj
+	current_user=request.user.username
+	#reponse['name']=current_user
+	#std=Student.objects.get(username=current_user)
+	#response['appl']=Application.objects.filter(company=obj,student=std)
+	return render(request,'production/acceptcomp.html',response)
+
+
+def logout_view(request):
+    logout(request.user)
+    return render(request,'login.html')		
+
+def applycomp(request,req):
+	if request.method == 'POST' :	
+		obj=Application()
+		current_user = request.user.username
+		std = Student.objects.get(username=current_user)
+		obj.student=std
+		obj.company=Company.objects.get(name=req)
+		file=request.FILES.get('resume')
+		obj.attachment=file
+		obj.file_name=file.name
+		obj.status=1
+		obj.save()
+		return render(request,'production/index.html')
+	return render(request,'production/index.html')
+

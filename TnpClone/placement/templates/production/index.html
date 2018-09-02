@@ -37,7 +37,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href={% url 'index' %} class="site_title"><i class="fa fa-paw"></i> <span>Fest Manager</span></a>
+              <a href={% url 'index' %} class="site_title"><i class="fa fa-paw"></i> <span>T & P</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -98,7 +98,7 @@
               <a data-toggle="tooltip" data-placement="top" title="Lock">
                 <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
               </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+              <a data-toggle="tooltip" data-placement="top" title="Logout" href="/logout">
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
               </a>
             </div>
@@ -254,35 +254,7 @@
         <!-- page content -->
         <div class="right_col" role="main">
           <!-- top tiles -->
-          <div class="row tile_count">
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-
-              <span class="count_top"><i class="fa fa-user"></i> No. of received requests </span>
-              <div class="count">{{count.countr}}</div>
-              
-            </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-clock-o"></i> No. of accepted requests </span>
-              <div class="count">{{count.counta}}</div>
-              
-            </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-user"></i> No. of pending requests</span>
-              <div class="count green">{{count.countp}}</div>
-              
-            </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-user"></i> No. of completed requests</span>
-              <div class="count">{{count.countc}}</div>
-             
-            </div>
-			  <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-user"></i> No. of sent requests</span>
-              <div class="count">{{count.counts}}</div>
-             
-            </div>
-
-          </div>
+          
           <!-- /top tiles -->
 
       

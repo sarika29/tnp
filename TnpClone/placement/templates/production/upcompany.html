@@ -37,7 +37,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href={% url 'index' %} class="site_title"><i class="fa fa-paw"></i> <span>Fest Manager</span></a>
+              <a href={% url 'index' %} class="site_title"><i class="fa fa-paw"></i> <span>T & P</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -252,41 +252,11 @@
         <!-- /top navigation -->
 
         <!-- page content -->
-        <div class="right_col" role="main">
-          <!-- top tiles -->
-          <div class="row tile_count">
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-
-              <span class="count_top"><i class="fa fa-user"></i> No. of received requests </span>
-              <div class="count">{{count.countr}}</div>
-              
-            </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-clock-o"></i> No. of accepted requests </span>
-              <div class="count">{{count.counta}}</div>
-              
-            </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-user"></i> No. of pending requests</span>
-              <div class="count green">{{count.countp}}</div>
-              
-            </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-user"></i> No. of completed requests</span>
-              <div class="count">{{count.countc}}</div>
-             
-            </div>
-        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-user"></i> No. of sent requests</span>
-              <div class="count">{{count.counts}}</div>
-             
-            </div>
-
-          </div>
+      
           <!-- /top tiles -->
 
       
-           
+           <div class="right_col" role="main">
 
           <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -304,9 +274,9 @@
                         <div class="block">
                           <div class="block_content">
 
-                            <h2 class="title">
-                                        {{r.name}}  
-                                        </h2>
+                            <a href="/acceptcomp/{{r.name}}"> <h2 class="title">
+                                       {{r.name}}  
+                                        </h2></a>
                                         <p>&nbsp;&nbsp;&nbsp;{{r.description}}
                    
                   </div>

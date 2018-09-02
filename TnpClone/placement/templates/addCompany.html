@@ -1,8 +1,11 @@
+
 <!DOCTYPE html>
+{% load staticfiles %}
 <html>
 <head>
 	<title>Add Company</title>
 	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="{% static 'build\css\addCompany.css' %}">
 </head>
 <body>
 	<div class="container">
@@ -10,7 +13,7 @@
 		{% csrf_token %}
 		<div class="form-group">
 				<label for="name">Name</label>
-				<input type="text" name="name" id="name" class="form-control">
+				<input placeholder="Name" type="text" name="name" id="name" class="form-control">
 		</div>
 		<div class="form-group">
 			<label for="description">Description</label>
@@ -47,4 +50,4 @@
 		</form>
 </div>
 </body>
-</html>
+
