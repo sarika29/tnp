@@ -14,6 +14,7 @@ urlpatterns = [
 	url(r'^acceptcomp/(?P<compname>[A-Za-z0-9.,]+)/$', views.acceptcomp,name="acceptcomp/(?P<req>[A-Za-z0-9.,]+)"),
 	url(r'^logout/$',views.logout_view,name="logout"),
 	url(r'^applycomp/(?P<req>[A-Za-z0-9.,]+)/$', views.applycomp,name="applycomp"),
+	url(r'^status/(?P<compname>[A-Za-z0-9.,]+)/$', views.status, name="status/(?P<req>[A-Za-z0-9.,]+)"),
 ]	
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

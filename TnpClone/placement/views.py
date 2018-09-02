@@ -151,3 +151,16 @@ def applycomp(request,req):
 		return redirect('/index')
 	return render(request,'production/index.html')
  
+def status(request, compname):
+	response = {}
+	current_user = request.user.username
+	std = Student.objects.get(username=current_user)
+	obj = Company.objects.get(name=compname)
+	status = Application.objects.get(student=std, company=obj)
+	print(status)
+	if status :
+		status = status.status
+		response["status"] = status
+	return render(request, 'production/status.html', response)
+
+
