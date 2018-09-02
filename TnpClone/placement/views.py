@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.models import User
 from .models import *
 from django.http import HttpResponse, HttpResponseRedirect
-import xlwt
+import xlwt,xlrd
 from xlwt import Workbook,easyxf,Formula
 # Create your views here.
 
@@ -225,21 +225,24 @@ def export_users_xls(request,compname):
         ws.write(row_num,4, check, font_style)
 
     	wb.save(response)
-    return redirect('/index')
+    	return redirect('/index')
 
+def shortlist(request,compname):
+	response={}
+	response['company']=Company.objects.get(name=compname)
+	return render(request,'production/shortlistupload.html',response)
 
-    def shortlist(request):
-    	return render(request,'production/shortlistupload.html',response)
+def upload_shortlist(request,compname):
 
-    def upload_shortlist(request,compname):
-		loc = ("path of file")
-
+	if request.method=='POST':
+		loc = request.FILES.get('shortlist')
+		
 		# To open Workbook
-		wb = xlrd.open_workbook(loc)
-		sheet = wb.sheet_by_index(0)
+		#wb = xlrd.open_workbook(loc)
+		#sheet = wb.sheet_by_index(0)
 		 
 		# For row 0 and column 0
-		sheet.cell_value(0, 0)
+		#sheet.cell_value(0, 0)
 
 		return redirect('/index')
 

@@ -283,9 +283,9 @@
                 <div class="x_panel">
                   <div class="x_title">
 
-                    <form id="demo-form" method="POST" action="/upload_shortlist/{{company.name}}/" enctype="multipart/form-data">
+                    <form id="demo-form" method="POST" action="/shortlistupload/{{company.name}}/" enctype="multipart/form-data">
           {% csrf_token %}
-
+{{company.name}}
                         <input type="file" name="shortlist" multiple>
              <br><br>
                   <button class="btn btn-primary" type="submit">Submit</button>
