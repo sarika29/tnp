@@ -19,6 +19,7 @@ urlpatterns = [
 	url(r'^status/(?P<compname>[A-Za-z0-9.,]+)/$', views.status, name="status/(?P<req>[A-Za-z0-9.,]+)"),
 	url(r'^liststd/(?P<compname>[A-Za-z0-9.,]+)/$', views.liststd,name="stdlist"),
 	url(r'^export/xls/(?P<compname>[A-Za-z0-9.,]+)/$', views.export_users_xls, name='export_users_xls'),
+	url(r'^shortlistupload/(?P<compname>[A-Za-z0-9.,]+)/$', views.export_users_xls, name='export_users_xls'),
 ]	
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

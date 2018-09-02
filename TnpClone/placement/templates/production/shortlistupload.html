@@ -1,14 +1,13 @@
-<!DOCTYPE html>
 {% load staticfiles %}
-<html>
-<head>
-	<title>Status</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-  	<link rel="icon" href="images/favicon.ico" type="image/ico" />
+  <link rel="icon" href="images/favicon.ico" type="image/ico" />
 
     <title>Training and Placement</title>
 
@@ -66,8 +65,11 @@
                 <ul class="nav side-menu">
                   <li><a href="/upcompany/"><i class="fa fa-user-plus"></i>UPCOMING COMPANIES</a>
                   </li>
-                  <li><a href="/status"><i class="fa fa-edit"></i>VIEW STATUS</a></li>
-                
+                  <li><a><i class="fa fa-edit"></i>VIEW STATUS</a></li>
+                {% if student.iscoordinator %}
+                  <li><a href="/addCompany"><i class="fa fa-user-plus"></i>ADD A COMPANY</a></li>
+                  <li><a href="/listcomp"><i class="fa fa-user-plus"></i>LIST OF COMPANIES</a></li>
+                  {% endif %}
                 </ul>
               </div>
        
@@ -99,7 +101,7 @@
               <a data-toggle="tooltip" data-placement="top" title="Lock">
                 <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
               </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+              <a data-toggle="tooltip" data-placement="top" title="Logout" href="/logout">
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
               </a>
             </div>
@@ -130,7 +132,7 @@
                       </a>
                     </li>
                     <li><a href="javascript:;">Help</a></li>
-                    <li><a href=""><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    <li><a href="/logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>
 
@@ -257,70 +259,45 @@
           <!-- /top tiles -->
 
       
-           <div class="right_col" role="main">
+               <div class="right_col" role="main">
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3>Apply for company : {{company.name}}  {{ status }}</h3>
+              </div>
 
-          <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-              <div class="x_panel">
-                <div class="x_title">
-                  {% if flag %}
-                  <p style="color:red;">You have already applied for that company
-                    {% endif %}
-                  <p color=></p>
-                  <h2>Status of your Interview</h2>
-
-                  <div class="clearfix"></div>
-                </div>
-                <!-- <div class="x_content">
-                  <div class="dashboard-widget-content">
-{% for r in company %}
-                    <ul class="list-unstyled timeline widget">
-                      <li>
-                        <div class="block">
-                          <div class="block_content">
-
-                            <a href="/acceptcomp/{{r.name}}"> <h2 class="title">
-                                       {{r.name}}  
-                                        </h2></a>
-                                        <p>&nbsp;&nbsp;&nbsp;{{r.description}}
-                   
+              <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button">Go!</button>
+                    </span>
                   </div>
                 </div>
-                </li>
-               {% endfor %}
-            </div>
-            </div> -->
-             	{% if status == 1 %}
-             	<p>Your application is submitted</p>
-        			<div class="progress">
-  						<div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-					</div>
-				{% endif%}
-				{% if status == 2 %}
-				<p>Prepare for online test</p>
-        			<div class="progress">
-  						<div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-					</div>
-				{% endif%}
-				{% if status == 3 %}
-				<p>Get Ready for the interview</p>
-        			<div class="progress">
-  						<div class="progress-bar bg-success" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-					</div>
-				{% endif%}
-				{% if status == 4 %}
-				<p>Congrats!! You are Selected</p>
-        			<div class="progress">
-  						<div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-					</div>
-				{% endif%}
               </div>
             </div>
-             </div>
+            <div class="clearfix"></div>
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+
+                    <form id="demo-form" method="POST" action="/upload_shortlist/{{company.name}}/" enctype="multipart/form-data">
+          {% csrf_token %}
+
+                        <input type="file" name="shortlist" multiple>
+             <br><br>
+                  <button class="btn btn-primary" type="submit">Submit</button>
+
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
         </div>
-
-       
-
+        </div>
         <!-- /page content -->
 
         <!-- footer content -->
@@ -375,5 +352,5 @@
     <!-- Custom Theme Scripts -->
     <script src="{% static 'build/js/custom.min.js' %}"></script>
   
-</body>
+  </body>
 </html>
