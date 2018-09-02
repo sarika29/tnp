@@ -85,8 +85,6 @@ def signin(request):
 	return render(request,'login.html',response)
 
 
-
-<<<<<<< HEAD
 def acceptcomp(request,compname):
 
 	obj=Company.objects.get(name=compname)
@@ -116,5 +114,3 @@ def applycomp(request,req):
 		return render(request,'production/index.html')
 	return render(request,'production/index.html')
 
-=======
->>>>>>> bbb083327a288981f89e234e27150b40f74cb014
