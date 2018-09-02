@@ -10,10 +10,6 @@ import xlwt
 # Create your views here.
 
 def signup(request):
-	current_user = request.user.username
-	obj = Student.objects.get(username=current_user)
-	if obj :
-		return redirect('/index')
 	response = {}
 	if request.method == 'POST' :
 		#username=request.POST['username']
@@ -98,10 +94,6 @@ def addCompany(request):
 	return render(request,'addCompany.html',response)
 
 def signin(request):
-	current_user = request.user.username
-	obj = Student.objects.get(username=current_user)
-	if obj :
-		return redirect('/index')
 	response = {}
 	if request.method == 'POST' :
 		username = request.POST['username']
@@ -129,15 +121,14 @@ def acceptcomp(request,compname):
 	response['student']=std
 	if Application.objects.filter(company=obj,student=std).exists():
 		response['flag']=1
-
 		response['company']=Company.objects.filter(min_cgpa__lte=std.cgpa)
 		return render(request,'production/upcompany.html',response)
 	return render(request,'production/acceptcomp.html',response)
 
 
 def logout_view(request):
-    logout(request.user)
-    return render(request,'login.html')		
+	logout(request)
+	return redirect('/signin')
 
 def applycomp(request,req):
 	if request.method == 'POST' :	
