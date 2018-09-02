@@ -244,11 +244,3 @@ def export_users_xls(request,compname):
 		return redirect('/index')
 
 
-
-
-<<<<<<< HEAD
-
-=======
-    wb.save(response)
-    return response
->>>>>>> d3273db019dd9f2e0c60926fde716b501ce34ca4
