@@ -253,22 +253,24 @@ def upload_shortlist(request,compname):
 
 	return redirect('/index')
 
-# def send_info(request):
-# 	if request.method == "POST" :
-# 		info = SendInfo()
-# 		info.name = request.POST["name"]
-# 		info.ctc = request.POST["ctc"]
-# 		info.description = request.POST["description"]
-# 		info.save()
-# 		msg = 'Company:' + info.name + '\nCTC:' + info.ctc + '\nComment:' + info.description
-# 		access_token = 'EAADfd1ZAZAWckBAHAjfGaSCT20sf95eqBeyVrbj9oA3CrUYdSuikPyDhenw9RTUEDjmtyFyn6C5EHgAjaxHjlYfohukza5WtmVmd8Gairg3D7Kvh8BIJyCfMNAANilsJhX4tI6rPzXhbifhYb63d6ZArX2yZADoG518B60p20gZDZD'
-# 		access_token = 'access_token=' + access_token   
+def send_info(request):
+	if request.method == "POST" :
+		info = SendInfo()
+		info.name = request.POST["name"]
+		info.ctc = request.POST["ctc"]
+		info.description = request.POST["description"]
+		info.save()
+		msg = 'Company:' + info.name + 'CTC:' + str(info.ctc) + 'Comment:' + info.description
+		msg1 = 'Company:' + info.name + '\nCTC:' + str(info.ctc) + '\nComment:' + info.description
+		access_token = 'EAADfd1ZAZAWckBAHAjfGaSCT20sf95eqBeyVrbj9oA3CrUYdSuikPyDhenw9RTUEDjmtyFyn6C5EHgAjaxHjlYfohukza5WtmVmd8Gairg3D7Kvh8BIJyCfMNAANilsJhX4tI6rPzXhbifhYb63d6ZArX2yZADoG518B60p20gZDZD'
+		access_token = 'access_token=' + access_token   
 
-# 		message = 'message=' + msg
+		message = 'message=' + msg1
 
-# 		link = 'https://graph.facebook.com/v3.1/me/feed?' + message + '&' + access_token
+		link = 'https://graph.facebook.com/v3.1/me/feed?' + message + '&' + access_token
+		print(link)
+		print(msg)
+		response1 = requests.post(link)
+		response1.raise_for_status()
 
-# 		# response = requests.post(link)
-# 		# response.raise_for_status()
-
-# 	return render(request, 'fb.html')
+	return render(request, 'fb.html')

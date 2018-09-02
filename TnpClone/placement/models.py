@@ -64,11 +64,11 @@ class Application(models.Model):
 	def __str__(self):
 		return self.student.username + str(self.status)
 
-# class SendInfo(models.Model):
-#     name = models.CharField(max_length=255)
-#     ctc = models.IntegerField()
-#     comments = models.TextField()
+class SendInfo(models.Model):
+    name = models.CharField(max_length=255)
+    ctc = models.IntegerField()
+    comments = models.TextField()
 
-#     def __str__(self):
-#         return self.name
+    def __str__(self):
+        return self.name
         
