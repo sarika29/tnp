@@ -73,3 +73,33 @@ def signin(request):
 	return render(request,'login.html',response)
 
 
+
+def acceptcomp(request,compname):
+
+	obj=Company.objects.get(name=compname)
+	response={}
+	response['company']=obj
+	current_user=request.user.username
+	#reponse['name']=current_user
+	#std=Student.objects.get(username=current_user)
+	#response['appl']=Application.objects.filter(company=obj,student=std)
+	return render(request,'production/acceptcomp.html',response)
+
+
+def logout_view(request):
+    logout(request)
+    return render(request,'login.html')		
+
+def applycomp(request,req):
+	if request.method == 'POST' :	
+		obj=Application()
+		obj.student=std
+		obj.company=Company.objects.get(name=req)
+		file=request.FILES.get('resume')
+		obj.attachment=file
+		obj.file_name=file.name
+		obj.status=1
+		obj.save()
+		return render(request,'production/index.html')
+	return render(request,'production/index.html')
+

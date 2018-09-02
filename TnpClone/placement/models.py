@@ -8,6 +8,10 @@ from django.contrib.auth.models import User
 def get_resume_path(instance, filename):
 	return 'resume/{0}/{1}'.format(instance.regno, filename)
 
+def make_resume_path(instance, filename):
+	return 'resume/{0}/{1}'.format(instance.company.name, instance.student.username)
+
+
 class Branch(models.Model):
 	branch_choice = (
 			('CSE','CSE'),
@@ -47,15 +51,17 @@ class Company(models.Model):
 
 
 class Application(models.Model):
-	user = models.ForeignKey(Student, on_delete=models.CASCADE)
+	student= models.ForeignKey(Student, on_delete=models.CASCADE)
 	company = models.ForeignKey(Company, on_delete=models.CASCADE)
 	status_choices = (
 			(1, 'submitted'),
 			(2, 'onlineTest'),
-			(3, 'selected'),
+			(3, 'interview'),
+			(4, 'selected'),
 		)
 	status = models.IntegerField(choices=status_choices, default=1)
+	file_name = models.CharField(max_length=100,default="xxx")
+	attachment = models.FileField(upload_to=make_resume_path, unique=True)
 
 	def __str__(self):
-		return self.user.username + str(self.status)
-
+		return self.student.username + str(self.status)

@@ -8,8 +8,11 @@ urlpatterns = [
 	url(r'^profile/$', views.profile, name='profile'),
 	url(r'^index/$', views.main, name='main'),
 	url(r'^upcompany/$', views.upcompany, name='upcompany'),
-	url(r'^login/$', views.signin, name='login')
-]
+	url(r'^login/$', views.signin, name='login'),
+	url(r'^acceptcomp/(?P<compname>[A-Za-z0-9.,]+)/$', views.acceptcomp,name="acceptcomp/(?P<req>[A-Za-z0-9.,]+)"),
+	url(r'^logout/$',views.logout_view,name="logout"),
+	url(r'^applycomp/(?P<req>[A-Za-z0-9.,]+)/$', views.applycomp,name="applycomp"),
+]	
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
