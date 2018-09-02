@@ -8,7 +8,15 @@ from .models import *
 from django.http import HttpResponse, HttpResponseRedirect
 import xlwt,xlrd
 from xlwt import Workbook,easyxf,Formula
+from django.contrib.auth.decorators import login_required,user_passes_test
+import requests
 # Create your views here.
+
+def checkuserifsuperuser(user):
+    if user.is_superuser:
+        return True
+    else:
+        return False
 
 def signup(request):
 	response = {}
@@ -34,6 +42,7 @@ def signup(request):
 			obj.save()
 	return render(request,'login.html',response)
 
+@login_required(login_url='/signin')
 def main(request):
 	response={}
 	current_user = request.user.username
@@ -45,6 +54,7 @@ def main(request):
 	response['file']=obj.resume
 	return render(request,'production/index.html',response)
 
+@login_required(login_url='/signin')
 def upcompany(request):
 	response={}
 	current_user = request.user.username
@@ -57,6 +67,8 @@ def upcompany(request):
 	print response['student']
 	return render(request,'production/upcompany.html',response)
 
+@login_required(login_url='/signin')
+@user_passes_test(checkuserifsuperuser, login_url='/signin')
 def addCompany(request):
 	response = {}
 	current_user = request.user.username
@@ -89,11 +101,6 @@ def addCompany(request):
 		company.save()
 	return render(request, 'addCompany.html', response)
 
-
-def addCompany(request):
-	response={}
-	return render(request,'addCompany.html',response)
-
 def signin(request):
 	response = {}
 	if request.method == 'POST' :
@@ -111,8 +118,8 @@ def signin(request):
 def home(request):
 	return HttpResponse("<h1>Welcome</h1><title>Home</title>")
 
+@login_required(login_url='/signin')
 def acceptcomp(request,compname):
-
 	obj=Company.objects.get(name=compname)
 	response={}
 	response['company']=obj
@@ -122,16 +129,16 @@ def acceptcomp(request,compname):
 	response['student']=std
 	if Application.objects.filter(company=obj,student=std).exists():
 		response['flag']=1
-
 		response['company']=Company.objects.filter(min_cgpa__lte=std.cgpa)
 		return render(request,'production/upcompany.html',response)
 	return render(request,'production/acceptcomp.html',response)
 
-
+@login_required(login_url='/signin')
 def logout_view(request):
-    logout(request)
-    return render(request,'login.html')		
+	logout(request)
+	return redirect('/signin')
 
+@login_required(login_url='signin/')
 def applycomp(request,req):
 	if request.method == 'POST' :	
 		obj=Application()
@@ -147,6 +154,7 @@ def applycomp(request,req):
 		return redirect('/index')
 	return render(request,'production/index.html')
  
+@login_required(login_url='signin/')
 def status(request, compname):
 	response = {}
 	current_user = request.user.username
@@ -159,7 +167,7 @@ def status(request, compname):
 		response["status"] = status
 	return render(request, 'production/status.html', response)
 
-
+@login_required(login_url='signin/')
 def listcomp(request):
 	response={}
 	current_user=request.user.username
@@ -172,6 +180,7 @@ def listcomp(request):
 		return render(request,'production/listcomp.html',response)
 	return redirect('/index')
 
+@login_required(login_url='signin/')
 def liststd(request,compname):
 	response={}
 	current_user=request.user.username
@@ -185,7 +194,7 @@ def liststd(request,compname):
 	response['student']=std1
 	return render(request,'production/liststd.html',response)
 
-
+@login_required(login_url='signin/')
 def export_users_xls(request,compname):
     response = HttpResponse(content_type='application/ms-excel')
     response['Content-Disposition'] = 'attachment; filename="studentlist.xls"'
@@ -227,6 +236,7 @@ def export_users_xls(request,compname):
     	wb.save(response)
     	return redirect('/index')
 
+<<<<<<< HEAD
 def shortlist(request,compname):
 	response={}
 	response['company']=Company.objects.get(name=compname)
@@ -245,5 +255,43 @@ def upload_shortlist(request,compname):
 		#sheet.cell_value(0, 0)
 
 		return redirect('/index')
+=======
+@login_required(login_url='signin/')
+def shortlist(request):
+  	return render(request,'production/shortlistupload.html',response)
 
+@login_required(login_url='signin/')
+def upload_shortlist(request,compname):
+	loc = ("path of file")
 
+	# To open Workbook
+	wb = xlrd.open_workbook(loc)
+	sheet = wb.sheet_by_index(0)
+	 
+	# For row 0 and column 0
+	sheet.cell_value(0, 0)
+>>>>>>> 15b0ae6080a558878a385e0f44d89f1f480a8e1f
+
+	return redirect('/index')
+
+def send_info(request):
+	if request.method == "POST" :
+		info = SendInfo()
+		info.name = request.POST["name"]
+		info.ctc = request.POST["ctc"]
+		info.description = request.POST["description"]
+		info.save()
+		msg = 'Company:' + info.name + 'CTC:' + str(info.ctc) + 'Comment:' + info.description
+		msg1 = 'Company:' + info.name + '\nCTC:' + str(info.ctc) + '\nComment:' + info.description
+		access_token = 'EAADfd1ZAZAWckBAHAjfGaSCT20sf95eqBeyVrbj9oA3CrUYdSuikPyDhenw9RTUEDjmtyFyn6C5EHgAjaxHjlYfohukza5WtmVmd8Gairg3D7Kvh8BIJyCfMNAANilsJhX4tI6rPzXhbifhYb63d6ZArX2yZADoG518B60p20gZDZD'
+		access_token = 'access_token=' + access_token   
+
+		message = 'message=' + msg1
+
+		link = 'https://graph.facebook.com/v3.1/me/feed?' + message + '&' + access_token
+		print(link)
+		print(msg)
+		response1 = requests.post(link)
+		response1.raise_for_status()
+
+	return render(request, 'fb.html')
