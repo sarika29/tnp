@@ -7,13 +7,10 @@ from django.contrib.auth.models import User
 from .models import *
 from django.http import HttpResponse, HttpResponseRedirect
 import xlwt
+from xlwt import Workbook,easyxf,Formula
 # Create your views here.
 
 def signup(request):
-	current_user = request.user.username
-	obj = Student.objects.get(username=current_user)
-	if obj :
-		return redirect('/index')
 	response = {}
 	if request.method == 'POST' :
 		#username=request.POST['username']
@@ -98,10 +95,6 @@ def addCompany(request):
 	return render(request,'addCompany.html',response)
 
 def signin(request):
-	current_user = request.user.username
-	obj = Student.objects.get(username=current_user)
-	if obj :
-		return redirect('/index')
 	response = {}
 	if request.method == 'POST' :
 		username = request.POST['username']
@@ -136,7 +129,7 @@ def acceptcomp(request,compname):
 
 
 def logout_view(request):
-    logout(request.user)
+    logout(request)
     return render(request,'login.html')		
 
 def applycomp(request,req):
@@ -203,12 +196,42 @@ def export_users_xls(request,compname):
     font_style = xlwt.XFStyle()
 
     comp=Company.objects.filter(name=compname)
-    rows = Application.objects.filter(company=comp).values_list('regno', 'rollno', 'cgpa', 'branch','resume')
-    for row in rows:
-        row_num += 1
-        for col_num in range(len(row)):
-            ws.write(row_num, col_num, row[col_num], font_style)
+    rows = Application.objects.filter(company=comp)
 
-    wb.save(response)
-    return response
+    for row in rows:
+    	std=row.student
+    	br=std.branch
+    	#std2=Student.objects.get(regno=std.regno).values_list('regno', 'rollno', 'cgpa', 'branch','resume')
+        row_num += 1
+        ws.write(row_num, 0, std.regno, font_style)
+        ws.write(row_num, 1, std.rollno, font_style)
+        ws.write(row_num,2, std.cgpa, font_style)
+
+        ws.write(row_num,3, br.branch, font_style)
+        check="http://127.0.0.1:8000/resume"+str(row.attachment.url)
+        print check
+        ws.write(row_num,4, check, font_style)
+
+    	wb.save(response)
+    return redirect('/index')
+
+
+    def shortlist(request):
+    	return render(request,'production/shortlistupload.html',response)
+
+    def upload_shortlist(request,compname):
+		loc = ("path of file")
+
+		# To open Workbook
+		wb = xlrd.open_workbook(loc)
+		sheet = wb.sheet_by_index(0)
+		 
+		# For row 0 and column 0
+		sheet.cell_value(0, 0)
+
+		return redirect('/index')
+
+
+
+
 
