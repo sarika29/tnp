@@ -9,11 +9,9 @@ urlpatterns = [
 	url(r'^upcompany/$', views.upcompany, name='profile'),
 	url(r'^addCompany/$', views.addCompany, name='addCompany'),
 	url(r'^index/$', views.main, name='main'),
-<<<<<<< HEAD
 	url(r'^listcomp/$', views.listcomp, name='main'),
 	url(r'^upcompany/$', views.upcompany, name='upcompany'),
-=======
->>>>>>> 004c21e34be23ea836118c45754c86c3667f6f31
+
 	url(r'^login/$', views.signin, name='login'),
 	url(r'^$', views.home, name='home'),
 	url(r'^acceptcomp/(?P<compname>[A-Za-z0-9.,]+)/$', views.acceptcomp,name="acceptcomp/(?P<req>[A-Za-z0-9.,]+)"),
