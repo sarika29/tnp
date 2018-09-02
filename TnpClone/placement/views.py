@@ -45,7 +45,14 @@ def main(request):
 	response={}
 	current_user = request.user.username
 	response['name']=current_user
+
+
+
+	obj=Student.objects.get(regno= 123)
+
+
 	obj=Student.objects.get(regno= current_user)
+
 	response['student']=obj
 	response['file']=obj.resume
 	return render(request,'production/index.html',response)
@@ -58,6 +65,11 @@ def upcompany(request):
 	obj=Company.objects.filter(min_cgpa__lte=std.cgpa)
 	response['company']=obj
 	return render(request,'production/upcompany.html',response)
+
+
+def addCompany(request):
+	response={}
+	return render(request,'addCompany.html',response)
 
 def signin(request):
 	response = {}
@@ -74,6 +86,7 @@ def signin(request):
 
 
 
+<<<<<<< HEAD
 def acceptcomp(request,compname):
 
 	obj=Company.objects.get(name=compname)
@@ -103,3 +116,5 @@ def applycomp(request,req):
 		return render(request,'production/index.html')
 	return render(request,'production/index.html')
 
+=======
+>>>>>>> bbb083327a288981f89e234e27150b40f74cb014
