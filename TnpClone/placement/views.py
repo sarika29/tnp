@@ -120,8 +120,11 @@ def acceptcomp(request,compname):
 	response={}
 	response['company']=obj
 	current_user=request.user.username
-	response['name']=current_user
 	std=Student.objects.get(username=current_user)
+	status = Application.objects.filter(student=std, company=obj)
+	if status:
+		response["status"] = status
+	response['name']=current_user
 	if Application.objects.filter(company=obj,student=std).exists():
 		response['flag']=1
 		response['company']=Company.objects.filter(min_cgpa__lte=std.cgpa)
@@ -145,6 +148,6 @@ def applycomp(request,req):
 		obj.file_name=file.name
 		obj.status=1
 		obj.save()
-		return render(request,'production/index.html')
+		return redirect('/index')
 	return render(request,'production/index.html')
-
+ 
