@@ -65,11 +65,11 @@
                 <ul class="nav side-menu">
                   <li><a href="/upcompany/"><i class="fa fa-user-plus"></i>UPCOMING COMPANIES</a>
                   </li>
-                  <li><a href="/status/{{ r.name }}"><i class="fa fa-edit"></i>VIEW STATUS</a></li>
+                  <li><a><i class="fa fa-edit"></i>VIEW STATUS</a></li>
                 {% if student.iscoordinator %}
                   <li><a href="/addCompany"><i class="fa fa-user-plus"></i>ADD A COMPANY</a></li>
                    <li><a href="/listcomp"><i class="fa fa-user-plus"></i>LIST OF COMPANIES</a></li>
-                  {% endif %} 
+                  {% endif %}
                 </ul>
               </div>
        
@@ -268,9 +268,9 @@
                   {% if flag %}
                   <p style="color:red;">You have already applied for that company
                     {% endif %}
-                  <p color=
-                  <h2>List of Upcoming Companies</h2>
 
+                  <h2>You are coordinator for the following companies<br>Click the company to view the list of students who have applied</h2>
+                  
                   <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
@@ -281,7 +281,7 @@
                         <div class="block">
                           <div class="block_content">
 
-                            <a href="/acceptcomp/{{r.name}}"> <h2 class="title">
+                            <a href="/liststd/{{r.name}}"> <h2 class="title">
                                        {{r.name}}  
                                         </h2></a>
                                         <p>&nbsp;&nbsp;&nbsp;{{r.description}}

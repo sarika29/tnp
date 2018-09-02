@@ -65,11 +65,11 @@
                 <ul class="nav side-menu">
                   <li><a href="/upcompany/"><i class="fa fa-user-plus"></i>UPCOMING COMPANIES</a>
                   </li>
-                  <li><a href="/status/{{ r.name }}"><i class="fa fa-edit"></i>VIEW STATUS</a></li>
+                  <li><a><i class="fa fa-edit"></i>VIEW STATUS</a></li>
                 {% if student.iscoordinator %}
                   <li><a href="/addCompany"><i class="fa fa-user-plus"></i>ADD A COMPANY</a></li>
                    <li><a href="/listcomp"><i class="fa fa-user-plus"></i>LIST OF COMPANIES</a></li>
-                  {% endif %} 
+                  {% endif %}
                 </ul>
               </div>
        
@@ -265,30 +265,17 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="x_panel">
                 <div class="x_title">
-                  {% if flag %}
-                  <p style="color:red;">You have already applied for that company
-                    {% endif %}
-                  <p color=
-                  <h2>List of Upcoming Companies</h2>
+                
+                  <h2>List of Students who have applied for {{company}}<br>
+                    <a href="/export/xls/{{company}}">Export all users</a></h2>
 
                   <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
                   <div class="dashboard-widget-content">
-{% for r in company %}
-                    <ul class="list-unstyled timeline widget">
-                      <li>
-                        <div class="block">
-                          <div class="block_content">
-
-                            <a href="/acceptcomp/{{r.name}}"> <h2 class="title">
-                                       {{r.name}}  
-                                        </h2></a>
-                                        <p>&nbsp;&nbsp;&nbsp;{{r.description}}
-                   
-                  </div>
-                </div>
-                </li>
+{% for r in student %}
+                    <p> {{r.student.username}}</p>
+                    <br>
                {% endfor %}
             </div>
             </div>

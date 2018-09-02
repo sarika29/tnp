@@ -66,6 +66,10 @@
                   <li><a href="/upcompany/"><i class="fa fa-user-plus"></i>UPCOMING COMPANIES</a>
                   </li>
                   <li><a href="/status/"><i class="fa fa-edit"></i>VIEW STATUS</a></li>
+                  {% if student.iscoordinator %}
+                  <li><a href="/addCompany"><i class="fa fa-user-plus"></i>ADD A COMPANY</a></li>
+                  <li><a href="/listcomp"><i class="fa fa-user-plus"></i>LIST OF COMPANIES</a></li>
+                  {% endif %}
                 
                 </ul>
               </div>

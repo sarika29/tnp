@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.models import User
 from .models import *
-
+from django.http import HttpResponse, HttpResponseRedirect
+import xlwt
 # Create your views here.
 
 def signup(request):
@@ -37,23 +39,25 @@ def signup(request):
 
 def main(request):
 	response={}
-	try:
-		current_user = request.user.username
-		response['name']=current_user
-		obj=Student.objects.get(regno= current_user)
-		response['student']=obj
-		response['file']=obj.resume
-	except:
-		return redirect('/signin')
+	current_user = request.user.username
+	response['name']=current_user
+
+	obj=Student.objects.get(regno= current_user)
+
+	response['student']=obj
+	response['file']=obj.resume
 	return render(request,'production/index.html',response)
 
 def upcompany(request):
 	response={}
 	current_user = request.user.username
 	response['name']=current_user
-	std=Student.objects.get(username=current_user)
+
+	std=Student.objects.get(regno=current_user)
 	obj=Company.objects.filter(min_cgpa__lte=std.cgpa)
 	response['company']=obj
+	response['student']=std
+	print response['student']
 	return render(request,'production/upcompany.html',response)
 
 def addCompany(request):
@@ -120,13 +124,12 @@ def acceptcomp(request,compname):
 	response={}
 	response['company']=obj
 	current_user=request.user.username
-	std=Student.objects.get(username=current_user)
-	status = Application.objects.filter(student=std, company=obj)
-	if status:
-		response["status"] = status
 	response['name']=current_user
+	std=Student.objects.get(regno=current_user)
+	response['student']=std
 	if Application.objects.filter(company=obj,student=std).exists():
 		response['flag']=1
+
 		response['company']=Company.objects.filter(min_cgpa__lte=std.cgpa)
 		return render(request,'production/upcompany.html',response)
 	return render(request,'production/acceptcomp.html',response)
@@ -139,8 +142,8 @@ def logout_view(request):
 def applycomp(request,req):
 	if request.method == 'POST' :	
 		obj=Application()
-		current_user = request.user.username
-		std = Student.objects.get(username=current_user)
+		current_user=request.user.username
+		std=Student.objects.get(regno=current_user)
 		obj.student=std
 		obj.company=Company.objects.get(name=req)
 		file=request.FILES.get('resume')
@@ -164,3 +167,59 @@ def status(request, compname):
 	return render(request, 'production/status.html', response)
 
 
+def listcomp(request):
+	response={}
+	current_user=request.user.username
+	response['name']=current_user
+	std=Student.objects.get(regno=current_user)
+	if std.iscoordinator:
+		obj=Company.objects.filter(coordinator=std)
+		response['company']=obj
+		response['student']=std
+		return render(request,'production/listcomp.html',response)
+	return redirect('/index')
+
+def liststd(request,compname):
+	response={}
+	current_user=request.user.username
+	response['name']=current_user
+	response['company']=compname
+	comp=Company.objects.get(name=compname)
+	obj=Student.objects.get(username=current_user)
+	if comp.coordinator != obj:
+		return redirect('/index')
+	std1=Application.objects.filter(company=comp)
+	response['student']=std1
+	return render(request,'production/liststd.html',response)
+
+
+def export_users_xls(request,compname):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="studentlist.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Student List')
+
+    # Sheet header, first row
+    row_num = 0
+
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Registration Number', 'Roll Number', 'CGPA', 'Branch','Resume', ]
+
+    for col_num in range(len(columns)):
+        ws.write(row_num, col_num, columns[col_num], font_style)
+
+    # Sheet body, remaining rows
+    font_style = xlwt.XFStyle()
+
+    comp=Company.objects.filter(name=compname)
+    rows = Application.objects.filter(company=comp).values_list('regno', 'rollno', 'cgpa', 'branch','resume')
+    for row in rows:
+        row_num += 1
+        for col_num in range(len(row)):
+            ws.write(row_num, col_num, row[col_num], font_style)
+
+    wb.save(response)
+    return response
