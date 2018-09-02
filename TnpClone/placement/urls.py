@@ -5,7 +5,6 @@ from django.conf.urls.static import static
 
 urlpatterns = [
 	url(r'^signin/$',views.signup,name="index"),
-	url(r'^index/$', views.main, name='profile'),
 	url(r'^upcompany/$', views.upcompany, name='profile'),
 	url(r'^addCompany/$', views.addCompany, name='addCompany'),
 	url(r'^index/$', views.main, name='main'),
@@ -17,6 +16,7 @@ urlpatterns = [
 	url(r'^acceptcomp/(?P<compname>[A-Za-z0-9.,]+)/$', views.acceptcomp,name="acceptcomp/(?P<req>[A-Za-z0-9.,]+)"),
 	url(r'^logout/$',views.logout_view,name="logout"),
 	url(r'^applycomp/(?P<req>[A-Za-z0-9.,]+)/$', views.applycomp,name="applycomp"),
+	url(r'^status/(?P<compname>[A-Za-z0-9.,]+)/$', views.status, name="status/(?P<req>[A-Za-z0-9.,]+)"),
 	url(r'^liststd/(?P<compname>[A-Za-z0-9.,]+)/$', views.liststd,name="stdlist"),
 	url(r'^export/xls/(?P<compname>[A-Za-z0-9.,]+)/$', views.export_users_xls, name='export_users_xls'),
 	url(r'^shortlistupload/(?P<compname>[A-Za-z0-9.,]+)/$', views.export_users_xls, name='export_users_xls'),

@@ -145,7 +145,19 @@ def applycomp(request,req):
 		obj.status=1
 		obj.save()
 		return redirect('/index')
-	return redirect('/index')
+	return render(request,'production/index.html')
+ 
+def status(request, compname):
+	response = {}
+	current_user = request.user.username
+	std = Student.objects.get(username=current_user)
+	obj = Company.objects.get(name=compname)
+	status = Application.objects.get(student=std, company=obj)
+	print(status)
+	if status :
+		status = status.status
+		response["status"] = status
+	return render(request, 'production/status.html', response)
 
 
 def listcomp(request):
@@ -234,4 +246,9 @@ def export_users_xls(request,compname):
 
 
 
+<<<<<<< HEAD
 
+=======
+    wb.save(response)
+    return response
+>>>>>>> d3273db019dd9f2e0c60926fde716b501ce34ca4
