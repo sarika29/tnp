@@ -2,15 +2,18 @@
 
 from __future__ import unicode_literals
 from django.contrib.auth import authenticate, login, logout
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.models import User
 from .models import *
 from django.http import HttpResponse, HttpResponseRedirect
 import xlwt
 # Create your views here.
 
-
 def signup(request):
+	current_user = request.user.username
+	obj = Student.objects.get(username=current_user)
+	if obj :
+		return redirect('/index')
 	response = {}
 	if request.method == 'POST' :
 		#username=request.POST['username']
@@ -35,8 +38,8 @@ def signup(request):
 	return render(request,'login.html',response)
 
 def main(request):
-
 	response={}
+<<<<<<< HEAD
 	current_user = request.user.username
 	response['name']=current_user
 
@@ -44,6 +47,16 @@ def main(request):
 
 	response['student']=obj
 	response['file']=obj.resume
+=======
+	try:
+		current_user = request.user.username
+		response['name']=current_user
+		obj=Student.objects.get(regno= current_user)
+		response['student']=obj
+		response['file']=obj.resume
+	except:
+		return redirect('/signin')
+>>>>>>> 004c21e34be23ea836118c45754c86c3667f6f31
 	return render(request,'production/index.html',response)
 
 def upcompany(request):
@@ -58,12 +71,48 @@ def upcompany(request):
 	print response['student']
 	return render(request,'production/upcompany.html',response)
 
+def addCompany(request):
+	response = {}
+	current_user = request.user.username
+	if request.method == "POST":
+		company = Company()
+		name = request.POST["name"]
+		if Company.objects.filter(name=name):
+			return redirect("/")
+		company.name = name
+		company.description = request.POST["description"]
+		company.min_cgpa = request.POST["min_cgpa"]
+		obj=Student.objects.get(username=current_user)
+		company.coordinator = obj
+		company.save()
+		if request.POST.get("CSE") :
+			branch = Branch.objects.get(branch="CSE")
+			company.branchOptions.add(branch)
+		if request.POST.get("ECE") :
+			branch = Branch.objects.get(branch="ECE")
+			company.branchOptions.add(branch)
+		if request.POST.get("EEE") :
+			branch = Branch.objects.get(branch="EEE")
+			company.branchOptions.add(branch)
+		if request.POST.get("MME") :
+			branch = Branch.objects.get(branch="MME")
+			company.branchOptions.add(branch)
+		if request.POST.get("BIO") :
+			branch = Branch.objects.get(branch="BIO")
+			company.branchOptions.add(branch)
+		company.save()
+	return render(request, 'addCompany.html', response)
+
 
 def addCompany(request):
 	response={}
 	return render(request,'addCompany.html',response)
 
 def signin(request):
+	current_user = request.user.username
+	obj = Student.objects.get(username=current_user)
+	if obj :
+		return redirect('/index')
 	response = {}
 	if request.method == 'POST' :
 		username = request.POST['username']
@@ -77,15 +126,26 @@ def signin(request):
 	return render(request,'login.html',response)
 
 
+def home(request):
+	return HttpResponse("<h1>Welcome</h1><title>Home</title>")
+
 def acceptcomp(request,compname):
 
 	obj=Company.objects.get(name=compname)
 	response={}
 	response['company']=obj
 	current_user=request.user.username
+<<<<<<< HEAD
 	response['name']=current_user
 	std=Student.objects.get(regno=current_user)
 	response['student']=std
+=======
+	std=Student.objects.get(username=current_user)
+	status = Application.objects.filter(student=std, company=obj)
+	if status:
+		response["status"] = status
+	response['name']=current_user
+>>>>>>> 004c21e34be23ea836118c45754c86c3667f6f31
 	if Application.objects.filter(company=obj,student=std).exists():
 		response['flag']=1
 
@@ -95,14 +155,19 @@ def acceptcomp(request,compname):
 
 
 def logout_view(request):
-    logout(request)
+    logout(request.user)
     return render(request,'login.html')		
 
 def applycomp(request,req):
 	if request.method == 'POST' :	
 		obj=Application()
+<<<<<<< HEAD
 		current_user=request.user.username
 		std=Student.objects.get(regno=current_user)
+=======
+		current_user = request.user.username
+		std = Student.objects.get(username=current_user)
+>>>>>>> 004c21e34be23ea836118c45754c86c3667f6f31
 		obj.student=std
 		obj.company=Company.objects.get(name=req)
 		file=request.FILES.get('resume')
@@ -111,6 +176,7 @@ def applycomp(request,req):
 		obj.status=1
 		obj.save()
 		return redirect('/index')
+<<<<<<< HEAD
 	return redirect('/index')
 
 
@@ -171,3 +237,7 @@ def export_users_xls(request,compname):
     wb.save(response)
     return response
 
+=======
+	return render(request,'production/index.html')
+ 
+>>>>>>> 004c21e34be23ea836118c45754c86c3667f6f31

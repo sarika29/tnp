@@ -26,14 +26,13 @@ class Branch(models.Model):
 		return self.branch
 
 class Student(models.Model):
-	#username = models.ForeignKey(User,on_delete=models.CASCADE)
 	username = models.CharField(max_length=255)
 	regno = models.IntegerField(unique=True)
 	rollno = models.IntegerField(unique=True)
 	cgpa = models.FloatField()
 	branch=models.ForeignKey(Branch, on_delete=models.CASCADE)
 	resume = models.FileField(upload_to=get_resume_path, blank=True, null=True)
-	iscoordinator=models.BooleanField(default=False)
+	iscoordinator = models.BooleanField(default=False)
 
 	def __str__(self):
 		return self.username
@@ -43,11 +42,10 @@ class Company(models.Model):
 	description = models.TextField()
 	min_cgpa = models.FloatField()
 	branchOptions = models.ManyToManyField(Branch, related_name='company', blank=True)
-	coordinator=models.ForeignKey(Student,on_delete=models.CASCADE)
+	coordinator = models.ForeignKey(Student, on_delete=models.CASCADE)
 
 	def __str__(self):
 		return self.name
-
 
 
 class Application(models.Model):
