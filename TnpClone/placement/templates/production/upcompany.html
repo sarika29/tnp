@@ -292,76 +292,36 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="x_panel">
                 <div class="x_title">
-                  <h2>Recent Activities <small>Sessions</small></h2>
+                  <h2>List of Upcoming Companies</h2>
 
                   <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
                   <div class="dashboard-widget-content">
-
+{% for r in company %}
                     <ul class="list-unstyled timeline widget">
-          {% for r in rec_act %}
                       <li>
                         <div class="block">
                           <div class="block_content">
+
                             <h2 class="title">
-                                              <a>{{r.rid}}</a>
-                                          </h2>
-              {% if r.result == 'notseen' %}
-                            <p class="excerpt">Your request {{r.rid}} has been sent</p>
-              
-              {% elif r.result == 'yes' %}
-                              <p class="excerpt">Your request {{r.rid}} has been accepted</p>
-                {% elif r.result == 'no' %}
-                              <p class="excerpt">Your request {{r.rid}} has been rejected</p>
-                {% else %}
-                              <p class="excerpt">Your request {{r.rid}} has been completed</p>
-                Following are attached documents if any:<br>
-            {% for a in myfiles %}
-              
-                    {% if a.rid == r %}
-            
-            <a href="/{{a.attachment}}" target="_blank">{{a.file_name}}</a><br>
-            {% endif %}
-            {% endfor %}
-                {% endif %}
-                          </div>
-                        </div>
-                      </li>
-                     {% endfor %}
-            {% if g %}
-           
-           {% for r in qobj %}
-                      <li>
-                        <div class="block">
-                          <div class="block_content">
-                            <h2 class="title">
-                                              <p class="excerpt">{{r.fromd}} sent to {{r.tod}}</p>
-                        {% for a in myfiles %}
-             
-                             {% if a.rid == r.link %}
-            
-            <a href="/{{a.attachment}}" target="_blank">{{a.file_name}}</a><br>
-            {% endif %}
-            {% endfor %}
-               
-                                          </h2>
-            
-                          </div>
-                        </div>
-                      </li>
-                     {% endfor %}
-            {% endif %}
-          
-                    </ul>
+                                        {{r.name}}  
+                                        </h2>
+                                        <p>&nbsp;&nbsp;&nbsp;{{r.description}}
+                   
                   </div>
                 </div>
+                </li>
+               {% endfor %}
+            </div>
+            </div>
               </div>
             </div>
-
+             
+ 
 
            
-      
+       
 
 
              </div>

@@ -1,14 +1,17 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.contrib.auth import authenticate, login, logout
-from django.shortcuts import render
+from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.models import User
 from .models import *
 
 # Create your views here.
 
-
 def signup(request):
+	current_user = request.user.username
+	obj = Student.objects.get(username=current_user)
+	if obj :
+		return redirect('/index')
 	response = {}
 	if request.method == 'POST' :
 		#username=request.POST['username']
@@ -32,36 +35,76 @@ def signup(request):
 			obj.save()
 	return render(request,'login.html',response)
 
-def profile(request):
-	response = {}
-	regno = 811734
-	student = Student.objects.get(regno=regno)
-	response['student'] = student
-
-	return render(request, 'profile.html', response)
-
 def main(request):
 
 	response={}
-	current_user = request.user.username
-	response['name']=current_user
-	obj=Student.objects.get(regno= 123)
-	response['student']=obj
-	response['file']=obj.resume
+	try:
+		current_user = request.user.username
+		response['name']=current_user
+		obj=Student.objects.get(regno= current_user)
+		response['student']=obj
+		response['file']=obj.resume
+	except:
+		return redirect('/signin')
 	return render(request,'production/index.html',response)
 
 def upcompany(request):
 	response={}
 	current_user = request.user.username
 	response['name']=current_user
+	std=Student.objects.get(username=current_user)
+	obj=Company.objects.filter(min_cgpa__lte=std.cgpa)
+	response['company']=obj
 	return render(request,'production/upcompany.html',response)
 
 def addCompany(request):
 	response = {}
+	current_user = request.user.username
 	if request.method == "POST":
 		company = Company()
-		company.name = request.POST["name"]
+		name = request.POST["name"]
+		if Company.objects.filter(name=name):
+			return redirect("/")
+		company.name = name
 		company.description = request.POST["description"]
 		company.min_cgpa = request.POST["min_cgpa"]
-		company.branchOptions = request.POST["branch"]
+		obj=Student.objects.get(username=current_user)
+		company.coordinator = obj
+		company.save()
+		if request.POST.get("CSE") :
+			branch = Branch.objects.get(branch="CSE")
+			company.branchOptions.add(branch)
+		if request.POST.get("ECE") :
+			branch = Branch.objects.get(branch="ECE")
+			company.branchOptions.add(branch)
+		if request.POST.get("EEE") :
+			branch = Branch.objects.get(branch="EEE")
+			company.branchOptions.add(branch)
+		if request.POST.get("MME") :
+			branch = Branch.objects.get(branch="MME")
+			company.branchOptions.add(branch)
+		if request.POST.get("BIO") :
+			branch = Branch.objects.get(branch="BIO")
+			company.branchOptions.add(branch)
+		company.save()
 	return render(request, 'addCompany.html', response)
+
+def signin(request):
+	current_user = request.user.username
+	obj = Student.objects.get(username=current_user)
+	if obj :
+		return redirect('/index')
+	response = {}
+	if request.method == 'POST' :
+		username = request.POST['username']
+		password = request.POST['password']
+		user = authenticate(username=username, password=password)
+		if user is None :
+			return render(request,'login.html',response)
+		else :
+			login(request,user)
+			return redirect('/index')
+	return render(request,'login.html',response)
+
+def home(request):
+	return HttpResponse("<h1>Welcome</h1><title>Home</title>")
